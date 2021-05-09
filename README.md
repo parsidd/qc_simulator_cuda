@@ -20,9 +20,13 @@ The code showed considerable performance improvement in terms of time when compa
 ## More info about the code itself
 The code is well commented, and is easy enough to understand if one has a basic background in quantum computing. Note that the qubit ordering followed was the same as Qiskit, to make it easier to compare results. The folder also contains an image([4Qubit_QFT.png](./4Qubit_QFT.png)) of the quantum fourier transform circuit for 4 qubits, which was the reference for the QFT code. Also, the maximum number of qubits is currently 16, restricted by the data type used for indexing. This can easily be extended to larger state spaces. If an error like the following occurs(mostly while running on the 16 qubit instances):
 
-"terminate called after throwing an instance of 'thrust::system::system_error'
+*terminate called after throwing an instance of 'thrust::system::system_error'
   what():  parallel_for failed: an illegal memory access was encountered
-Aborted (core dumped)"
+Aborted (core dumped)*
 
 It is mostly because of the difference in the GPU that was used for developing the code (done on Google Colab which uses a Tesla K80) and the one being used. In such a case run the lower qubit testcases. 
+
+The following 2 papers were used as reference:
+1. [Accelerating Shor's Factorization Algorithm on GPUs - I. Savran, M. Demirci, A. H. Yilmaz](https://arxiv.org/abs/1801.01434#:~:text=Shor's%20quantum%20algorithm%20is%20very,much%20faster%20than%20classical%20algorithms.&text=Our%20implementation%20has%2052.5%5Ctimes,20.5%5Ctimes%20speedup%20over%20Liquid.)
+2. [https://www.eecg.utoronto.ca/~moshovos/CUDA08/arx/QFT_report.pdf - Alexander Smith Khashayar Khavari](https://www.eecg.utoronto.ca/~moshovos/CUDA08/arx/QFT_report.pdf)
 Please do reach out to me (Parth S. Shah, EE17B059, IIT Madras) in case of any issues. 

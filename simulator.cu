@@ -409,6 +409,10 @@ int main(int argc, char **argv){
                 return 0;
             }
             fp = fopen(argv[2],"r");
+            if ( fp == NULL )  {
+                printf( "input file failed to open." );
+                return 0;
+            }
             fscanf(fp, "%d", &nq);
             hdim = 1<<nq;
 
@@ -435,6 +439,10 @@ int main(int argc, char **argv){
             qft(gpu_ptr, cpu_ptr);
             // print_probab(cpu_ptr, hdim);
             fp = fopen(argv[3], "r");
+            if ( fp == NULL )  {
+                printf( "output file failed to open." );
+                return 0;
+            }
             double max_diff = 0.0f;
             double max_p = 0.0f;
             for(int s=0;s<hdim;s++){
@@ -456,6 +464,10 @@ int main(int argc, char **argv){
                 return 0;
             }
             fp = fopen(argv[2],"r");
+            if ( fp == NULL )  {
+                printf( "input file failed to open." );
+                return 0;
+            }
             fscanf(fp, "%d", &nq);
             hdim = 1<<nq;
             int num_gates;
@@ -520,6 +532,10 @@ int main(int argc, char **argv){
             // print_probab(cpu_ptr, hdim);
             fclose(fp);
             fp = fopen(argv[3], "r");
+            if ( fp == NULL )  {
+                printf( "output file failed to open." );
+                return 0;
+            }
             double max_diff = 0.0f;
             double max_p = 0.0f;
             for(int s=0;s<hdim;s++){

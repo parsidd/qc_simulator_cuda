@@ -14,6 +14,24 @@ After compiling the code using nvcc (no additional parameters required). The exe
 |3 | Runs an arbitrary Quantum Circuit with a specified initial state. Again, this requires the second argument to be the input file which contains the initial state and the circuit, while the third argument contains the expected probability outputs. The first line of input file contains the number of qubits(n) while the second line contains the number of gates(g). The next 2^n lines contain the probability amplitudes of each state. The following g lines contain the gate to be applied and to which qubit. Each line starts with a number to specify the gate: 1 - Hadamard, 2 - S-Gate, 3 - T-Gate, 4 - C-Not. The reason these were chosen is because they provide one of the simplest "Universal Quantum Gate set": Any Quantum Circuit can be decomposed to containing only these gates such that the output differs by an arbitrary amount in terms of amplitude. For the first 3 gates, the next number (on the same line) provides the qubit the gate should be applied on. For the 4th gate, the Controlled-Not gate, the first parameter specifies the target qubit and the second provides the control qubit. |
 |4 | This was mainly for testing the inverse QFT ciruit: it applies the QFT followed by the Inverse QFT, on a random pure state in one of the basis in the 2^4 Hilbert space(only 4 qubits). The final output shows that the same initial state is reached, thus verifying the inverse QFT, of course once the QFT is verified.|
 
+**Example usage: Running the given 10 qubit circuit:**
+
+nvcc simulator.cu
+
+./a.out 3 random_circuit_input_10.txt random_circuit_output_10.txt
+
+**Expected output:**
+
+Applying the random circuit...
+
+Maximum difference in simulated probability and calculated probability = 0.000000
+
+Maximum probability  = 0.007624
+
+Time taken = 0.118553
+
+*(NOTE: The test cases files have the number of qubits at the end of the file name)*
+
 ## Some points to consider
 The code showed considerable performance improvement in terms of time when compared with Qiskit use on Google COLAB. For example, using Qiskit's State Vector simulator, the time taken to execute and collect the results of a 16 qubit 10000 gate circuit was about 15s, while the CUDA simulator took only 0.1s to complete. Of course the comparison is not so fair because python is interpreted while this code will be compiled. Looking at some papers that used C/C++ simulators instead, show clearly that GPUs are obviously well suited to simulating quantum circuits given the large state space and parallelism. Although care has been taken to provide optimised usage of a GPU, the fact that the code is more generic to running any quantum circuit along with the time constraint, did not allow me to explore every possible avenue. There are still some possible optimisations regarding the usage of shared/global memory which have not been taken care of yet. 
 
